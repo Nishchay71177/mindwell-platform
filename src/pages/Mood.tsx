@@ -134,7 +134,29 @@ const Mood = () => {
 
   const averageMood = moodEntries.length > 0 
     ? (moodEntries.reduce((sum, entry) => sum + entry.mood_value, 0) / moodEntries.length).toFixed(1)
-    : '0'
+    : '4.2' // Demo data for preview
+
+  // Add demo data for preview when no real entries exist
+  const demoEntries = moodEntries.length === 0 ? [
+    { id: '1', mood_emoji: '😄', mood_label: 'Great', created_at: new Date(Date.now() - 86400000).toISOString() },
+    { id: '2', mood_emoji: '🙂', mood_label: 'Good', created_at: new Date(Date.now() - 172800000).toISOString() },
+    { id: '3', mood_emoji: '😐', mood_label: 'Okay', created_at: new Date(Date.now() - 259200000).toISOString() },
+    { id: '4', mood_emoji: '🙂', mood_label: 'Good', created_at: new Date(Date.now() - 345600000).toISOString() },
+    { id: '5', mood_emoji: '😄', mood_label: 'Great', created_at: new Date(Date.now() - 432000000).toISOString() },
+  ] : []
+
+  const displayEntries = moodEntries.length > 0 ? moodEntries : demoEntries
+
+  // Demo chart data
+  const demoChartData = [
+    { date: 'Mon', mood: 4, emoji: '🙂' },
+    { date: 'Tue', mood: 5, emoji: '😄' },
+    { date: 'Wed', mood: 3, emoji: '😐' },
+    { date: 'Thu', mood: 4, emoji: '🙂' },
+    { date: 'Fri', mood: 5, emoji: '😄' },
+    { date: 'Sat', mood: 4, emoji: '🙂' },
+    { date: 'Sun', mood: 5, emoji: '😄' },
+  ]
 
   return (
     <div className="space-y-8">
@@ -238,12 +260,12 @@ const Mood = () => {
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium">7-Day Average</span>
                 <span className="text-2xl font-bold text-primary">
-                  {averageMood}/5
+                  {moodEntries.length > 0 ? averageMood : '4.2'}/5
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium">Total Entries</span>
-                <span className="text-lg font-semibold">{moodEntries.length}</span>
+                <span className="text-lg font-semibold">{moodEntries.length || '5'}</span>
               </div>
             </CardContent>
           </Card>
@@ -255,7 +277,7 @@ const Mood = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {moodEntries.slice(0, 5).map((entry) => (
+                {displayEntries.slice(0, 5).map((entry) => (
                   <div
                     key={entry.id}
                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -272,7 +294,7 @@ const Mood = () => {
                   </div>
                 ))}
                 
-                {moodEntries.length === 0 && (
+                {displayEntries.length === 0 && (
                   <div className="text-center text-gray-500 py-4">
                     No mood entries yet. Log your first mood above!
                   </div>
@@ -284,7 +306,7 @@ const Mood = () => {
       </div>
 
       {/* Mood Chart */}
-      {chartData.length > 0 && (
+      {(chartData.length > 0 || moodEntries.length === 0) && (
         <Card>
           <CardHeader>
             <CardTitle>Mood Trend (Last 7 Days)</CardTitle>
@@ -295,7 +317,7 @@ const Mood = () => {
           <CardContent>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData}>
+                <BarChart data={chartData.length > 0 ? chartData : demoChartData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
                   <YAxis domain={[1, 5]} />
@@ -309,6 +331,13 @@ const Mood = () => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            {moodEntries.length === 0 && (
+              <div className="text-center mt-4">
+                <p className="text-sm text-gray-500">
+                  📊 This is demo data. Start logging your mood to see your real trends!
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}

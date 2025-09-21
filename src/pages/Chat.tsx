@@ -309,11 +309,37 @@ const Chat = () => {
                     <h3 className="text-lg font-semibold mb-2">
                       Welcome to your AI Wellness Coach
                     </h3>
-                    <p className="text-sm max-w-md mx-auto">
+                    <p className="text-sm max-w-md mx-auto mb-4">
                       I'm here to support you on your mental wellness journey. 
                       Feel free to share what's on your mind, ask for coping strategies, 
                       or just have a chat about how you're feeling.
                     </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-md mx-auto">
+                      <button
+                        onClick={() => setInputMessage("I'm feeling stressed about my exams")}
+                        className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-lg transition-colors"
+                      >
+                        💭 "I'm feeling stressed about exams"
+                      </button>
+                      <button
+                        onClick={() => setInputMessage("I'm having trouble sleeping")}
+                        className="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg transition-colors"
+                      >
+                        😴 "I'm having trouble sleeping"
+                      </button>
+                      <button
+                        onClick={() => setInputMessage("I've been feeling anxious lately")}
+                        className="text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-2 rounded-lg transition-colors"
+                      >
+                        😰 "I've been feeling anxious"
+                      </button>
+                      <button
+                        onClick={() => setInputMessage("Can you help me with study tips?")}
+                        className="text-xs bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-lg transition-colors"
+                      >
+                        📚 "Help with study tips"
+                      </button>
+                    </div>
                   </div>
                 )}
                 

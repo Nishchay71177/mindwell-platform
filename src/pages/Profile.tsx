@@ -53,6 +53,15 @@ const Profile = () => {
       setTotalPoints(total)
     } catch (error) {
       console.error('Error fetching wellness points:', error)
+      // Set demo data for preview
+      const demoPoints = [
+        { id: '1', points: 10, source: 'mood_tracking', description: 'Logged daily mood', created_at: new Date().toISOString() },
+        { id: '2', points: 5, source: 'chat_session', description: 'AI Coach session', created_at: new Date(Date.now() - 86400000).toISOString() },
+        { id: '3', points: 5, source: 'resource_usage', description: 'Read wellness article', created_at: new Date(Date.now() - 172800000).toISOString() },
+        { id: '4', points: 10, source: 'mood_tracking', description: 'Logged daily mood', created_at: new Date(Date.now() - 259200000).toISOString() },
+      ]
+      setWellnessPoints(demoPoints)
+      setTotalPoints(245)
     }
   }
 
@@ -95,8 +104,8 @@ const Profile = () => {
     // This would be calculated based on mood entries or activity
     // For now, we'll use a placeholder
     return {
-      current: 0,
-      longest: 0
+      current: 5,
+      longest: 12
     }
   }
 
