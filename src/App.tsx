@@ -5,6 +5,7 @@ import ProtectedRoute from '@/components/ProtectedRoute'
 import Layout from '@/components/Layout'
 
 // Pages
+import Landing from '@/pages/Landing'
 import Login from '@/pages/Login'
 import SignUp from '@/pages/SignUp'
 import Dashboard from '@/pages/Dashboard'
@@ -19,6 +20,9 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
+            {/* Landing page */}
+            <Route path="/landing" element={<Landing />} />
+            
             {/* Public routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
@@ -65,7 +69,7 @@ function App() {
             } />
             
             {/* Default redirect */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Navigate to="/landing" replace />} />
           </Routes>
         </div>
       </Router>
